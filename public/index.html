@@ -1,0 +1,35 @@
+<script type="text/javascript" src="eventsource.min.js"></script>
+<script>
+    const url = new URL('http://localhost:8181/.well-known/mercure');
+    // Add topic to listen to
+    url.searchParams.append('topic', 'live_message');
+/*
+    const eventSource = new EventSource(url);
+    eventSource.onmessage = event => {
+        console.log("Without Credential:");
+        console.log(event);
+        triggerElement(event)
+    }
+*/
+
+    const es = new EventSourcePolyfill(url, {
+        headers: {
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsibGl2ZV9tZXNzYWdlIl0sInN1YnNjcmliZSI6WyJsaXZlX21lc3NhZ2UiXX19.ZExNcHj3ehEyAQXbNv70JW8e_qX62KCEFLoIwQMPMwI' ,
+        }
+    });
+    es.withCredentials = true;
+
+    es.onmessage = message => {
+        console.log("With Credential");
+        console.log(message);
+        triggerElement(message)
+    }
+
+    function triggerElement(message) {
+        const data = JSON.parse(message.data);
+        document.getElementById('live_message').innerHTML =  data.username + " : "  + data.message;
+    }
+</script>
+
+
+<div id="live_message" class="live_message"></div>

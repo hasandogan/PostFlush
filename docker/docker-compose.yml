@@ -1,0 +1,70 @@
+version: '3.7'
+services:
+    webserver:
+        build: ./etc/nginx/
+        container_name: friely_webserver
+        restart: always
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./../../friely:/var/www/friely
+        depends_on:
+            - mysql
+        links:
+            - mercure
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: friely_phpmyadmin
+        ports:
+            - "8080:80"
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=mysql
+        restart: always
+        depends_on:
+            - mysql
+
+    mysql:
+        container_name: friely_mysql
+        command: --default-authentication-plugin=mysql_native_password
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: friely
+            MYSQL_USER: yusufdogan
+            MYSQL_PASSWORD: yusufdogan
+        ports:
+            - "8989:3306"
+        volumes:
+            - db:/var/lib/mysql
+            - "./etc/mysql/conf.d:/etc/mysql/conf.d"
+
+    mercure:
+        image: dunglas/mercure
+        container_name: friely_mercure
+        restart: unless-stopped
+        environment:
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
+            MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeThisMercureHubJWTSecretKey!'
+            # Set the URL of your Symfony project (without trailing slash!) as value of the cors_origins directive
+            MERCURE_EXTRA_DIRECTIVES: |
+                cors_origins *
+                heartbeat 3s
+                write_timeout 0s
+        ports:
+            - "8181:80"
+            - "4443:443"
+        # Comment the following line to disable the development mode
+        command: /usr/bin/caddy run -config /etc/caddy/Caddyfile.dev
+        volumes:
+            - mercure_data:/data
+            - mercure_config:/config
+
+volumes:
+    mercure_data:
+    mercure_config:
+    db:
+        driver: local

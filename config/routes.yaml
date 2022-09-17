@@ -1,0 +1,7 @@
+publish:
+  path: /publish
+  controller: App\Controller\MercureController::publish
+
+generate:
+  path: /generate
+  controller: App\Controller\MercureController::generateJwt
