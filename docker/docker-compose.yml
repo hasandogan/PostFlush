@@ -2,13 +2,13 @@ version: '3.7'
 services:
     webserver:
         build: ./etc/nginx/
-        container_name: friely_webserver
+        container_name: postFlush_webserver
         restart: always
         ports:
             - "80:80"
             - "443:443"
         volumes:
-            - ./../../friely:/var/www/friely
+            - ./../../postFlush:/var/www/postFlush
         depends_on:
             - mysql
         links:
@@ -16,7 +16,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        container_name: friely_phpmyadmin
+        container_name: postFlush_phpmyadmin
         ports:
             - "8080:80"
         environment:
@@ -27,12 +27,12 @@ services:
             - mysql
 
     mysql:
-        container_name: friely_mysql
+        container_name: postFlush_mysql
         command: --default-authentication-plugin=mysql_native_password
         image: mysql:8.0
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: friely
+            MYSQL_DATABASE: postFlush
             MYSQL_USER: yusufdogan
             MYSQL_PASSWORD: yusufdogan
         ports:
@@ -43,7 +43,7 @@ services:
 
     mercure:
         image: dunglas/mercure
-        container_name: friely_mercure
+        container_name: postFlush_mercure
         restart: unless-stopped
         environment:
             SERVER_NAME: ':80'
