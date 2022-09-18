@@ -8,7 +8,7 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
-        '/index' => [[['_route' => 'create_product', '_controller' => 'App\\Controller\\routeController::indexView'], null, null, null, false, false, null]],
+        '/' => [[['_route' => 'index', '_controller' => 'App\\Controller\\routeController::indexView'], null, null, null, false, false, null]],
         '/publish' => [[['_route' => 'publish', '_controller' => 'App\\Controller\\MercureController::publish'], null, null, null, false, false, null]],
         '/generate' => [[['_route' => 'generate', '_controller' => 'App\\Controller\\MercureController::generateJwt'], null, null, null, false, false, null]],
     ],

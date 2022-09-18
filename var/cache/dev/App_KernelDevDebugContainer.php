@@ -16,6 +16,6 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerAMBnicH\App_KernelDevDebugContainer([
     'container.build_hash' => 'AMBnicH',
-    'container.build_id' => 'f953a227',
-    'container.build_time' => 1663491818,
+    'container.build_id' => '3e0b956a',
+    'container.build_time' => 1663493503,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerAMBnicH');

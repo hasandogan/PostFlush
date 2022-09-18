@@ -59,13 +59,13 @@ class __TwigTemplate_3d82e3b40b3dcfbd8b50094af6799726 extends Template
         ";
         // line 12
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 15
+        // line 26
         echo "    </head>
     <body>
         ";
-        // line 17
+        // line 28
         $this->displayBlock('body', $context, $blocks);
-        // line 18
+        // line 29
         echo "    </body>
 </html>
 ";
@@ -115,13 +115,24 @@ class __TwigTemplate_3d82e3b40b3dcfbd8b50094af6799726 extends Template
         echo "            ";
         echo twig_escape_filter($this->env, $this->env->getFunction('encore_entry_script_tags')->getCallable()("app"), "html", null, true);
         echo "
+
+            <link rel=\"stylesheet\" href=\"bubble.css\">
+            <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">
+
+            <script type=\"text/javascript\" src=\"eventsource.min.js\"></script>
+            <script type=\"text/javascript\" src=\"messageListener.js\"></script>
+            <script src=\"//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js\"></script>
+            <script src=\"https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js\"></script>
+            <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
+            <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>
+            <script type=\"text/javascript\" src=\"form.js\"></script>
         ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
     }
 
-    // line 17
+    // line 28
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -140,7 +151,7 @@ class __TwigTemplate_3d82e3b40b3dcfbd8b50094af6799726 extends Template
 
     public function getDebugInfo()
     {
-        return array (  125 => 17,  115 => 13,  108 => 12,  98 => 9,  91 => 8,  78 => 5,  69 => 18,  67 => 17,  63 => 15,  61 => 12,  58 => 11,  55 => 8,  50 => 5,  44 => 1,);
+        return array (  136 => 28,  115 => 13,  108 => 12,  98 => 9,  91 => 8,  78 => 5,  69 => 29,  67 => 28,  63 => 26,  61 => 12,  58 => 11,  55 => 8,  50 => 5,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -158,12 +169,23 @@ class __TwigTemplate_3d82e3b40b3dcfbd8b50094af6799726 extends Template
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+
+            <link rel=\"stylesheet\" href=\"bubble.css\">
+            <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">
+
+            <script type=\"text/javascript\" src=\"eventsource.min.js\"></script>
+            <script type=\"text/javascript\" src=\"messageListener.js\"></script>
+            <script src=\"//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js\"></script>
+            <script src=\"https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js\"></script>
+            <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
+            <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>
+            <script type=\"text/javascript\" src=\"form.js\"></script>
         {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
     </body>
 </html>
-", "base.html.twig", "/home/web/friely/templates/base.html.twig");
+", "base.html.twig", "/var/www/friely/templates/base.html.twig");
     }
 }
