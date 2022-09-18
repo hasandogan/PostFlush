@@ -4,9 +4,11 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class MercureController
@@ -14,9 +16,9 @@ use Symfony\Component\Mercure\Update;
  */
 class MercureController extends AbstractController
 {
-
-    public function publish(HubInterface $hub): Response
+    public function publish(HubInterface $hub,Request $request): Response
     {
+
         try {
             $messageList = [
                 "test",
@@ -28,8 +30,8 @@ class MercureController extends AbstractController
                 'live_message',
                 json_encode(
                     [
-                        'message' => $messageList[rand(0, 2)],
-                        'username' => 'hasan',
+                        'message' => $request->request->get('message'),
+                        'username' => $request->request->get('username'),
                     ], JSON_THROW_ON_ERROR
                 ),
                 true

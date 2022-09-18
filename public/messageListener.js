@@ -24,7 +24,6 @@
     function triggerElement(message) {
     const data = JSON.parse(message.data);
     let allData =  data.username + " : "  + data.message;
-    document.getElementById('live_message').innerHTML =  data.username + " : "  + data.message;
     createBubble(allData)
     }
 
