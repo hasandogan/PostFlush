@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="border" style="border: 2px outset green;  height: 600px;"></div>
+    <div id="border" style="border: 2px outset green;  height: 600px;">
+    </div>
     <form id="test" method="post" >
         <div class="form-group">
             <label for="formGroupExampleInput">Kullanıcı adı</label>
@@ -13,6 +14,11 @@
         </div>
         <button type="submit"  class="btn btn-success">submit</button>
     </form>
+{% endblock %}
+{% block script %}
+    <style>
+
+    </style>
 {% endblock %}
 
 

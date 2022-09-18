@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class MercureController
@@ -18,29 +17,25 @@ class MercureController extends AbstractController
 {
     public function publish(HubInterface $hub,Request $request): Response
     {
+        $message = $request->request->get('message');
+        $username = $request->request->get('userName');
 
-        try {
-            $messageList = [
-                "test",
-                "deneme",
-                "kim elledi götümü"
-            ];
+            try {
 
-            $update = new Update(
-                'live_message',
-                json_encode(
-                    [
-                        'message' => $request->request->get('message'),
-                        'username' => $request->request->get('username'),
-                    ], JSON_THROW_ON_ERROR
-                ),
-                true
-            );
-            $hub->publish($update);
-        } catch (\Exception $exception){
-            dd($exception);
-        }
-
+                $update = new Update(
+                    'live_message',
+                    json_encode(
+                        [
+                            'message' => $request->request->get('message'),
+                            'username' => $request->request->get('username'),
+                        ], JSON_THROW_ON_ERROR
+                    ),
+                    true
+                );
+                $hub->publish($update);
+            } catch (\Exception $exception) {
+                dd($exception->getMessage());
+            }
 
         return new Response();
     }
