@@ -31,7 +31,7 @@
     var element = document.createElement("div");
     element.classList.add('bubble');
         element.style.position = "absolute";
-        element.style.left = getRndInteger(0, 800)+'px';
+        element.style.left = getRndInteger(0, 1600)+'px';
         element.style.top = getRndInteger(0, 500)+'px';
     element.appendChild(document.createTextNode(test));
     document.getElementById('border').appendChild(element);
