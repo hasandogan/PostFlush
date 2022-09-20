@@ -8,7 +8,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "publish",
+            url: "message",
             data: formData,
             dataType: "json",
             encode: true,

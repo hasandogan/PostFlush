@@ -2,7 +2,7 @@
 
 namespace App\Validation;
 
-class Message
+class MessageValidation
 {
-
+    // TODO : validation yazılacak
 }
