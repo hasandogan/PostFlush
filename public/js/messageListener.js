@@ -1,4 +1,4 @@
-    const url = new URL('http://localhost:8181/.well-known/mercure');
+    const url = new URL('http://3.232.144.165:8181/.well-known/mercure');
     // Add topic to listen to
     url.searchParams.append('topic', 'live_message');
     /*
@@ -39,6 +39,8 @@
         document.getElementById('test').addEventListener('submit', () => {
             document.getElementById('message').value = '';
         });
+        document.getElementById("button").disabled = true;
+        setTimeout(function(){document.getElementById("button").disabled = false;},5000);
     }
 
 
