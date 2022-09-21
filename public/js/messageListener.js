@@ -35,8 +35,14 @@
         element.style.top = getRndInteger(0, 500)+'px';
     element.appendChild(document.createTextNode(test));
     document.getElementById('border').appendChild(element);
-    setTimeout(() => {  element.parentNode.removeChild(element); }, 4000);
+    setTimeout(() => {  element.parentNode.removeChild(element); }, 8000);
+        document.getElementById('test').addEventListener('submit', () => {
+            document.getElementById('message').value = '';
+        });
     }
+
+
+
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
