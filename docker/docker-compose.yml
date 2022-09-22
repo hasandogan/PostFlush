@@ -9,6 +9,9 @@ services:
             - "443:443"
         volumes:
             - ./../../postFlush:/var/www/postFlush
+            - ./etc/nginx
+            - ./certbot/conf:/etc/nginx/ssl
+            - ./certbot/data:/var/www/certbot
         depends_on:
             - mysql
         links:
@@ -62,6 +65,13 @@ services:
         volumes:
             - mercure_data:/data
             - mercure_config:/config
+    certbot:
+        image: certbot/certbot:latest
+        command: certonly --webroot --webroot-path=/var/www/certbot --email your-email@domain.com --agree-tos --no-eff-email -d domain.com -d www.domain.com
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data:/var/www/certbot
 
 volumes:
     mercure_data:
