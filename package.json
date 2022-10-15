@@ -1,0 +1,21 @@
+{
+  "name": "@bmertturk/bc-merger",
+  "version": "1.0.1",
+  "main": "compiler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon compiler.js -e scss,js --ignore \"dist/*.*\""
+  },
+  "author": "Behçet Merttürk",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "bootstrap": "^5.2.1",
+    "nodemon": "^2.0.15",
+    "sass": "^1.50.0",
+    "terser": "^5.12.1",
+    "modern-normalize": "^1.1.0"
+  },
+  "description": ""
+}
