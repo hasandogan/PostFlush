@@ -8,7 +8,7 @@
     <script type="text/javascript" src="{{ asset('js/eventsource.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/messageListener.js') }}"></script>
 </head>
-<body>
+<body onload="app.init()">
     {% block body %}{% endblock %}
 </body>
 </html>

@@ -1,15 +1,16 @@
 module.exports = {
 	modulesPath: "node_modules",
-	outputPath: "dist",
-	scssSource: "assets/scss/style3.scss",
-	outputCssFile: "style3.css",
-	renderJs: false,
+	outputPath: "public/dist",
+	scssSource: "assets/scss/style.scss",
+	outputCssFile: "style.css",
+	renderJs: true,
 	renderCss: true,
 	jsSource: "assets/javascript",
 	outputJsFile: "main.js",
 	files: {
 		"custom": [
-			"app.js"
+			"eventsource.min.js",
+			"app.js",
 		]
 	}
 }

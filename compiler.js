@@ -53,4 +53,4 @@ if(mergerConfig.renderJs) {
 	}	
 }
 
-console.log(`Rendered at ${(new Date() - startTime) / 1000}`);
+console.log(`Rendered at ${(new Date() - startTime) / 1000} sec`);

@@ -7,6 +7,8 @@
 /var/
 /var/cache
 /vendor/
+/node_modules/
+/assets/
 ###< symfony/framework-bundle ###
 
 /.idea
