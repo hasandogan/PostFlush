@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome!</title>
-    <script type="text/javascript" src="{{ asset('js/eventsource.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/messageListener.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('dist/style.css') }}">
 </head>
 <body onload="app.init()">
     {% block body %}{% endblock %}
+    <script type="text/javascript" defer src="{{ asset('dist/main.js') }}"></script>
 </body>
 </html>

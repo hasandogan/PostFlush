@@ -1,0 +1,31 @@
+#wrapper {
+	width: 100%;
+	height: 100vh;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 0 $gutter;
+}
+
+header {
+	height: $header-height;
+}
+
+@import "header";
+
+main {
+	height: calc(100vh - $header-height);
+	position: relative;
+}
+
+#result {
+	overflow: auto;
+	border: 1px solid $border-color;
+	padding: 15px;
+	height: calc(100% - 70px);
+}
+
+@import "messages";
+@import "form";

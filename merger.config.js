@@ -1,11 +1,11 @@
 module.exports = {
 	modulesPath: "node_modules",
 	outputPath: "public/dist",
-	scssSource: "assets/scss/style.scss",
+	scssSource: "public/css/style.scss",
 	outputCssFile: "style.css",
 	renderJs: true,
 	renderCss: true,
-	jsSource: "assets/javascript",
+	jsSource: "public/js",
 	outputJsFile: "main.js",
 	files: {
 		"custom": [

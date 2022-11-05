@@ -1,10 +1,18 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-<div id="border"></div>
-<label for="formGroupExampleInput">Kullanıcı adı</label>
-<input type="text" id="username" placeholder="kullanıcı adı">
-<label>mesaj</label>
-<input type="text" id="message" placeholder="mesaj">
-<button type="submit" id="button" class="btn btn-success" onclick="fetchData()">submit</button>
+<div id="wrapper">
+	<div class="container">
+		{% include 'snippets/header.twig' %}
+		<main>
+			<div id="result">
+				<div id="messages"></div>
+			</div>
+			<div id="form">
+				<input type="text" id="username" placeholder="who">
+				<input type="text" id="message" placeholder="what">
+				<button type="submit" id="button" onclick="app.fetchData()">post to flush</button>
+			</div>
+		</main>
+	</div>
+</div>
 {% endblock %}

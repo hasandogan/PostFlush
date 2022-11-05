@@ -1,0 +1,44 @@
+#form {
+	height: 40px;
+	padding: 15px 0;
+	display: flex;
+	flex-wrap: wrap;
+	input[type="text"] {
+		height: 40px;
+		border: 1px solid $border-color;
+		font-size: 1.3rem;
+		border-radius: 0;
+		padding: 0 1rem;
+		font-family: inherit;
+		&:focus {
+			border-color: $primary-color;
+			box-shadow: none;
+			outline: 0;
+		}
+		&#username {
+			flex: 1 0 0;
+			max-width: 100%;
+			margin-right: $gutter;
+		}
+		&#message {
+			flex: 3 0 0;
+			max-width: 100%;
+			margin-right: $gutter;
+		}
+	}
+	button {
+		font-family: inherit;
+		height: 40px;
+		font-size: 1.3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: $primary-color;
+		color: $primary-text-color;
+		border: none;
+		transition: $transition-base;
+		&:hover {
+			background-color: $primary-color;
+		}
+	}
+}
