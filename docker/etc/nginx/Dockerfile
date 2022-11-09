@@ -41,7 +41,6 @@ ADD default.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN sed -i "s/user  nginx;/user  www-data;/g" /etc/nginx/nginx.conf
 # Expose ports.
-RUN php bin/console doctrine:schema:create
 
 EXPOSE 80
 #EXPOSE 443
