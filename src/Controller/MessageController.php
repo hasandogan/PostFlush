@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use App\Service\MessageService;
 use App\Validator\Message\PostValidator;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,5 +30,13 @@ class MessageController extends AbstractController
 
         // TODO : Response Class yazılacak. standzation için
         return new JsonResponse($messageService->storeMessage($request->request->all()), 200, ["Content-Type" => "application/json"]);
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    #[Route('/lastMessage', name: 'lastMessage', methods: ['POST'])]
+    public function getMessage(ManagerRegistry $doctrine){
+        return new JsonResponse($doctrine->getManager()->getRepository(Message::class)->findByExampleField(), 200, ["Content-Type" => "application/json"]);
     }
 }

@@ -61,7 +61,6 @@ class MessageService
     public function storeMessage(array $data) : array {
         $mercureService = new MercureService();
         $mercureService->publish($this->getHub(), $data);
-        return  [];
         // TODO : Exception class oluşturulacak. exception yötimleri buradan yapılacak.
         try {
             $message = new Message();

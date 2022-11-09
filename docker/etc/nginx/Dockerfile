@@ -13,6 +13,8 @@ RUN apt-get install git -y
 RUN apt-get install curl -y
 RUN apt-get install nano -y
 RUN apt-get install openssl -y
+RUN apt-get install mysql-client mysql-server -y
+RUN service mysql start
 RUN apt-get update
 
 RUN apt-get update && apt-get install -y \
@@ -39,6 +41,8 @@ ADD default.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN sed -i "s/user  nginx;/user  www-data;/g" /etc/nginx/nginx.conf
 # Expose ports.
+RUN php bin/console doctrine:schema:create
+
 EXPOSE 80
 #EXPOSE 443
 WORKDIR /var/www/postFlush

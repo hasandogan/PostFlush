@@ -9,6 +9,8 @@ services:
             - "443:443"
         volumes:
             - ./../../postFlush:/var/www/postFlush
+        depends_on:
+            - mysql
         links:
             - mercure
 
@@ -33,6 +35,21 @@ services:
         volumes:
             - mercure_data:/data
             - mercure_config:/config
+
+    mysql:
+        container_name: friely_mysql
+        command: --default-authentication-plugin=mysql_native_password
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: friely
+            MYSQL_USER: yusufdogan
+            MYSQL_PASSWORD: yusufdogan
+        ports:
+            - "8989:3306"
+        volumes:
+            - db:/var/lib/mysql
+            - "./etc/mysql/conf.d:/etc/mysql/conf.d"
 
 volumes:
     mercure_data:

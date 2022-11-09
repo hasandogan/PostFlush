@@ -1,10 +1,9 @@
 const app = {
 
 	init() {
-
+		this.getLastMessage()
 		this.eventListener();
 		this.listen();
-
 	},
 
 	listen() {
@@ -21,6 +20,29 @@ const app = {
 			const data = JSON.parse(message.data);
 			this.createBubble(data);
 		}
+	},
+
+
+	getLastMessage() {
+		$.ajax({
+			url: "/lastMessage",
+			cache: false,
+			type: "POST",
+			success: function (responses) {
+				console.log(responses);
+
+				responses.forEach(function (lastMessage) {
+					let data = {message: lastMessage.message, username: lastMessage.username}
+					let messageContainer = document.createElement('div');
+					messageContainer.classList.add('message-bubble');
+					messageContainer.innerHTML = `
+					<div class="user">${data.username}</div>
+					<div class="message">${data.message}</div>
+				`;
+					document.querySelector('#messages').appendChild(messageContainer);
+				});
+			}
+		});
 	},
 
 	createBubble(data) {
@@ -41,11 +63,11 @@ const app = {
 			document.querySelector('#message').disabled = false;
 			document.querySelector('#message').focus();
 
-		}, 3000);
-	},
+		}, 3000);},
 
 	checkLimit() {
 		const bubbleElement = document.querySelectorAll('.message-bubble');
+		console.log(bubbleElement.length);
 		if(bubbleElement.length === 100) {
 			bubbleElement[0].remove();
 		}
