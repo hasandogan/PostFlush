@@ -37,8 +37,12 @@
 		color: $primary-text-color;
 		border: none;
 		transition: $transition-base;
+		cursor: pointer;
 		&:hover {
 			background-color: $primary-color;
+		}
+		&:disabled {
+			opacity: 0.5;
 		}
 	}
 }

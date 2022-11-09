@@ -12,7 +12,6 @@ RUN apt-get install apt-utils -y
 RUN apt-get install git -y
 RUN apt-get install curl -y
 RUN apt-get install nano -y
-RUN apt-get install mysql-client -y
 RUN apt-get install openssl -y
 RUN apt-get update
 
@@ -39,7 +38,6 @@ RUN rm /etc/nginx/sites-enabled/default
 ADD default.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN sed -i "s/user  nginx;/user  www-data;/g" /etc/nginx/nginx.conf
-
 # Expose ports.
 EXPOSE 80
 #EXPOSE 443

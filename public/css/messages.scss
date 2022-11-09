@@ -1,12 +1,12 @@
 #messages {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: flex-end;
 	flex-wrap: nowrap;
 	min-height: 100%;
 	.message-bubble {
-		padding: $gutter;
+		padding: $gutter $gutter*3;
 		border-radius: $radius-base;
 		background-color: $primary-color;
 		color: $primary-text-color;
@@ -17,8 +17,24 @@
 			margin-bottom: 0;
 		}
 		.user {
-			font-size: 1.2rem;
+			font-size: 1.3rem;
+			font-weight: 700;
+			transform: translateX(-15px);
+			&:after {
+				content: ' -'
+			}
+		}
+		.message {
 			font-style: italic;
+			&:after {                                                       
+				content: close-quote;
+				vertical-align: bottom;
+			  }
+			  
+			  &:before {
+				content: open-quote;
+				vertical-align: top;
+			  }
 		}
 	}
 }

@@ -1,12 +1,14 @@
 const app = {
 
 	init() {
+
 		this.eventListener();
 		this.listen();
+
 	},
 
 	listen() {
-		const url = new URL('http://localhost:8181/.well-known/mercure');
+		const url = new URL("http://localhost:8181/.well-known/mercure");
 		url.searchParams.append('topic', 'live_message');
 		const es = new EventSourcePolyfill(url, {
 			headers: {
@@ -28,12 +30,25 @@ const app = {
 			<div class="user">${data.username}</div>
 			<div class="message">${data.message}</div>
 		`;
+		this.checkLimit();
 		document.querySelector('#messages').appendChild(messageContainer);
-		document.querySelector('#result').scrollTo(0, 10000);
-		//document.querySelector("#button").disabled = true;
+		document.querySelector('#result').scrollTo(0, 10000000);
+		document.querySelector('#message').value = "";
+		document.querySelector("#button").disabled = true;
+		document.querySelector('#message').disabled = true;
 		setTimeout(_ => {
-			//document.querySelector("#button").disabled = false;
-		}, 5000);
+			document.querySelector("#button").disabled = false;
+			document.querySelector('#message').disabled = false;
+			document.querySelector('#message').focus();
+
+		}, 3000);
+	},
+
+	checkLimit() {
+		const bubbleElement = document.querySelectorAll('.message-bubble');
+		if(bubbleElement.length === 100) {
+			bubbleElement[0].remove();
+		}
 	},
 
 	fetchData() {
@@ -42,13 +57,30 @@ const app = {
 			method: 'POST',
 			body: data,
 			headers : {
-				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",                                                                                                
+				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
 				"Access-Control-Origin": "*"
 			}
 		});
 	},
 
+	limitFormat(event, limit) {
+		event.target.value = event.target.value.substr(0, limit);
+	},
+
 	eventListener() {
+		document.querySelector('#message').addEventListener('keypress', event => {
+			if(event.key === "Enter") {
+				event.preventDefault();
+				app.fetchData();
+			}
+		});
+		document.querySelector('#message').addEventListener('input', event => {
+			this.limitFormat(event, 80);
+		});
+		document.querySelector('#username').addEventListener('input', event => {
+			this.limitFormat(event, 20);
+			
+		});
 
 	}
 }

@@ -6,3 +6,20 @@ body {
 	font-size: 12px;
 	overflow: hidden;
 }
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+	background: darken($primary-color, 15%);
+	border-radius: 5px;
+	&:hover {
+		background: darken($primary-color, 25%);
+	}
+}
