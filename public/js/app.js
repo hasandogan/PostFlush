@@ -52,6 +52,8 @@ const app = {
 
 	createBubble(data) {
 		this.createMessageHtml(data);
+		const audio = new Audio("mp3/message.mp3");
+		audio.play();
 		document.querySelector('#message').value = "";
 		document.querySelector("#button").disabled = true;
 		document.querySelector('#message').disabled = true;
@@ -59,8 +61,7 @@ const app = {
 			document.querySelector("#button").disabled = false;
 			document.querySelector('#message').disabled = false;
 			document.querySelector('#message').focus();
-			const audio = new Audio("mp3/message.mp3");
-			audio.play();
+
 		}, 3000);},
 
 	checkLimit() {
