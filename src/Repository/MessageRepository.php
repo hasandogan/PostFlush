@@ -46,7 +46,7 @@ class MessageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('m')
             ->select(array('m.id','m.message','m.username'))
-            ->orderBy('m.id', 'ASC')
+            ->orderBy('m.id', 'DESC')
             ->setMaxResults(98)
             ->getQuery()
             ->getArrayResult()
