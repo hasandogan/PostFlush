@@ -1,51 +1,45 @@
 const app = {
 
 	init() {
+		this.listen();
 		this.getLastMessage()
 		this.eventListener();
-		this.listen();
 	},
 
 	listen() {
-		const url = new URL("http://localhost:8181/.well-known/mercure");
+		const url = new URL(postFlushUrl);
 		url.searchParams.append('topic', 'live_message');
 		const es = new EventSourcePolyfill(url, {
 			headers: {
-				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsibGl2ZV9tZXNzYWdlIl0sInN1YnNjcmliZSI6WyJsaXZlX21lc3NhZ2UiXX19.ZExNcHj3ehEyAQXbNv70JW8e_qX62KCEFLoIwQMPMwI',
+				'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsibGl2ZV9tZXNzYWdlIl0sInN1YnNjcmliZSI6WyJsaXZlX21lc3NhZ2UiXX19.ZExNcHj3ehEyAQXbNv70JW8e_qX62KCEFLoIwQMPMwI'
 			}
 		});
 		es.withCredentials = true;
 		
 		es.onmessage = message => {
+			alert();
 			const data = JSON.parse(message.data);
 			this.createBubble(data);
 		}
 	},
 
-
 	getLastMessage() {
-		$.ajax({
-			url: "/lastMessage",
-			cache: false,
-			type: "POST",
-			success: function (responses) {
-				console.log(responses);
-
-				responses.forEach(function (lastMessage) {
-					let data = {message: lastMessage.message, username: lastMessage.username}
-					let messageContainer = document.createElement('div');
-					messageContainer.classList.add('message-bubble');
-					messageContainer.innerHTML = `
-					<div class="user">${data.username}</div>
-					<div class="message">${data.message}</div>
-				`;
-					document.querySelector('#messages').appendChild(messageContainer);
-				});
+		fetch("/lastMessage", {
+			method: 'POST',
+			headers : {
+				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+				"Access-Control-Origin": "*"
 			}
+		}).then((response) => response.json())
+  		.then((data) => {
+			data.forEach(lastMessage => {
+				let data = {message: lastMessage.message, username: lastMessage.username}
+				this.createMessageHtml(data);
+			});
 		});
 	},
 
-	createBubble(data) {
+	createMessageHtml(data) {
 		let messageContainer = document.createElement('div');
 		messageContainer.classList.add('message-bubble');
 		messageContainer.innerHTML = `
@@ -55,6 +49,10 @@ const app = {
 		this.checkLimit();
 		document.querySelector('#messages').appendChild(messageContainer);
 		document.querySelector('#result').scrollTo(0, 10000000);
+	},
+
+	createBubble(data) {
+		this.createMessageHtml(data);
 		document.querySelector('#message').value = "";
 		document.querySelector("#button").disabled = true;
 		document.querySelector('#message').disabled = true;
@@ -101,8 +99,9 @@ const app = {
 		});
 		document.querySelector('#username').addEventListener('input', event => {
 			this.limitFormat(event, 20);
-			
 		});
-
+		document.querySelector('#button').addEventListener('click', event => {
+			this.fetchData();
+		});
 	}
 }

@@ -3,6 +3,7 @@
 	padding: 15px 0;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: space-between;
 	input[type="text"] {
 		height: 40px;
 		border: 1px solid $border-color;
@@ -19,11 +20,22 @@
 			flex: 1 0 0;
 			max-width: 100%;
 			margin-right: $gutter;
+			display: block;
+			@media (max-width: 576px) {
+				flex: 0 0 100px;
+				max-width: 100px;
+				margin: 0;
+			}
 		}
 		&#message {
 			flex: 3 0 0;
 			max-width: 100%;
 			margin-right: $gutter;
+			@media (max-width: 576px) {
+				flex: 0 0 auto;
+				margin: 0;
+				max-width: none;
+			}
 		}
 	}
 	button {
@@ -38,11 +50,21 @@
 		border: none;
 		transition: $transition-base;
 		cursor: pointer;
+		&:after {
+			content: ' post';
+			margin-left: 5px;
+		}
 		&:hover {
 			background-color: $primary-color;
 		}
 		&:disabled {
 			opacity: 0.5;
+		}
+		@media (max-width: 576px) {
+			width: 40px;
+			&:after {
+				display: none;
+			}
 		}
 	}
 }
