@@ -45,6 +45,7 @@ class MessageRepository extends ServiceEntityRepository
     public function findByExampleField()
     {
         return $this->createQueryBuilder('m')
+            ->select(array('m.id','m.message','m.username'))
             ->orderBy('m.id', 'ASC')
             ->setMaxResults(98)
             ->getQuery()

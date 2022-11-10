@@ -28,7 +28,7 @@ class PostValidator extends BaseValidator
                     'message' => 'Kullanıcı Adı boş bırakılamaz'
                 ]),
                 new Assert\Length([
-                    'max' => '25',
+                    'max' => '30',
                     'maxMessage' => 'Kullanıcı Adı uzunluğu 25 karakterden fazla olamaz'
                 ])
             ]
