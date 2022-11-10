@@ -17,7 +17,6 @@ const app = {
 		es.withCredentials = true;
 		
 		es.onmessage = message => {
-			alert();
 			const data = JSON.parse(message.data);
 			this.createBubble(data);
 		}
@@ -60,18 +59,20 @@ const app = {
 			document.querySelector("#button").disabled = false;
 			document.querySelector('#message').disabled = false;
 			document.querySelector('#message').focus();
-
+			const audio = new Audio("mp3/message.mp3");
+			audio.play();
 		}, 3000);},
 
 	checkLimit() {
 		const bubbleElement = document.querySelectorAll('.message-bubble');
-		console.log(bubbleElement.length);
 		if(bubbleElement.length === 100) {
 			bubbleElement[0].remove();
 		}
 	},
 
 	fetchData() {
+		var x = document.getElementById("flush");
+		x.play();
 		const data = `username=${document.querySelector('#username').value}&message=${document.querySelector('#message').value}`;
 		fetch("message", {
 			method: 'POST',
@@ -101,7 +102,11 @@ const app = {
 			this.limitFormat(event, 20);
 		});
 		document.querySelector('#button').addEventListener('click', event => {
+
 			this.fetchData();
+			const audio = new Audio("mp3/flush.mp3");
+			audio.play();
 		});
+
 	}
 }
