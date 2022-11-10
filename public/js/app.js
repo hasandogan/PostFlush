@@ -45,6 +45,8 @@ const app = {
 			<div class="user">${data.username}</div>
 			<div class="message">${data.message}</div>
 		`;
+		const audio = new Audio("mp3/message.mp3");
+		audio.play();
 		this.checkLimit();
 		document.querySelector('#messages').appendChild(messageContainer);
 		document.querySelector('#result').scrollTo(0, 10000000);
@@ -52,8 +54,7 @@ const app = {
 
 	createBubble(data) {
 		this.createMessageHtml(data);
-		const audio = new Audio("mp3/message.mp3");
-		audio.play();
+
 		document.querySelector('#message').value = "";
 		document.querySelector("#button").disabled = true;
 		document.querySelector('#message').disabled = true;
@@ -72,8 +73,6 @@ const app = {
 	},
 
 	fetchData() {
-		var x = document.getElementById("flush");
-		x.play();
 		const data = `username=${document.querySelector('#username').value}&message=${document.querySelector('#message').value}`;
 		fetch("message", {
 			method: 'POST',
@@ -103,10 +102,7 @@ const app = {
 			this.limitFormat(event, 20);
 		});
 		document.querySelector('#button').addEventListener('click', event => {
-
 			this.fetchData();
-			const audio = new Audio("mp3/flush.mp3");
-			audio.play();
 		});
 
 	}
