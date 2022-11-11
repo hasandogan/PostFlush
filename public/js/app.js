@@ -123,8 +123,11 @@ const app = {
 		if(messageElement.value.trim().length === 0) {
 			messageElement.focus();
 			return;
-		}
+		}		
 		if(userElement.value.trim().length > 0 && messageElement.value.trim().length > 0) {
+			if(app.posted === false) {
+				return;
+			}
 			this.fetchData();
 		}
 	},
