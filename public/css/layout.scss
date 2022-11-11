@@ -9,11 +9,11 @@
 .container {
 	max-width: 1280px;
 	margin: 0 auto;
-	padding: 0 $gutter;
+	padding: 0 var(--gutter);
 	height: 100%;
 	.container-inside {
-		border-left: 1px solid $border;
-		border-right: 1px solid $border;
+		border-left: 1px solid var(--border);
+		border-right: 1px solid var(--border);
 		height: 100%;
 	}
 	@media (max-width: 576px) {
@@ -23,9 +23,9 @@
 }
 
 main {
-	height: calc(100% - ($header-height + $input-height) - ($gutter * 3));
+	height: calc(100% - (var(--header-height) + var(--input-height)) - (var(--gutter) + var(--gutter) + var(--gutter)));
 	position: relative;
-	padding-bottom: $gutter;
+	padding-bottom: var(--gutter);
 }
 
 #result {

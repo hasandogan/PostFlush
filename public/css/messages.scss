@@ -3,22 +3,22 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	min-height: 100%;
 	.message-bubble {
-		padding: $gutter $gutter*3;
-		border-radius: $radius;
-		background-color: $primary;
-		color: $primary-text;
+		padding: var(--gutter) calc(var(--gutter) + var(--gutter) + var(--gutter));
+		border-radius: var(--radius);
+		background-color: var(--primary);
+		color: var(--primary-text);
 		position: relative;
-		margin: 0 $gutter $gutter;
+		margin: 0 var(--gutter) var(--gutter);
 		&:last-child {
 			margin-bottom: 0;
 		}
 		.user {
 			font-size: 1.3rem;
 			font-weight: 700;
-			transform: translateX((-$gutter));
+			transform: translateX((-15px));
 			&:after {
 				content: ' -'
 			}

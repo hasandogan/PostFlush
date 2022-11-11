@@ -4,8 +4,31 @@ const app = {
 
 	init() {
 		this.listen();
+		this.checkTheme();
 		this.getLastMessage()
 		this.eventListener();
+	},
+
+	checkTheme() {
+		if(window.localStorage.theme === "dark") {
+			this.toggleTheme('dark');
+		} else {
+			this.toggleTheme('light');
+		}
+	},
+
+	toggleTheme(attr) {
+		if(attr === 'dark') {
+			window.localStorage.setItem('theme', 'dark');
+			document.querySelector('html').classList.add('dark');
+			document.querySelector('.toggle-theme').setAttribute('rel', 'light');
+			document.querySelector('.toggle-theme').innerHTML = '&#9788';
+		} else {
+			window.localStorage.removeItem('theme');
+			document.querySelector('html').classList.remove('dark');
+			document.querySelector('.toggle-theme').setAttribute('rel', 'dark');
+			document.querySelector('.toggle-theme').innerHTML = '&#9789';
+		}
 	},
 
 	listen() {
@@ -131,6 +154,10 @@ const app = {
 
 		document.querySelector('#button').addEventListener('click', event => {
 			this.checkInputs();
+		});
+
+		document.querySelector('.toggle-theme').addEventListener('click', event => {
+			this.toggleTheme(event.target.getAttribute('rel'));
 		});
 	}
 }
