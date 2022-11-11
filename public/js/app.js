@@ -31,8 +31,7 @@ const app = {
 				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
 				"Access-Control-Origin": "*"
 			}
-		}).then((response) => response.json())
-  		.then((data) => {
+		}).then(response => response.json()).then(data => {
 			data.forEach(lastMessage => {
 				const data = {message: lastMessage.message, username: lastMessage.username};
 				this.createMessageHtml(data);
@@ -52,7 +51,7 @@ const app = {
 		document.querySelector('#result').scrollTo(0, 10000000);
 	},
 
-	createBubble(posted = false, data) {
+	createBubble(posted, data) {
 		this.createMessageHtml(data);
 		if(posted === false) {
 			return;
@@ -82,22 +81,28 @@ const app = {
 				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
 				"Access-Control-Origin": "*"
 			}
+		}).then(response => response.json()).then(data => {
+			alert(JSON.stringify(data));
+			app.posted = true;
 		});
-		app.posted = true;
 	},
 
 	limitFormat(event, limit) {
 		event.target.value = event.target.value.substr(0, limit);
 	},
 
-	checkInput(event) {
-		if(event.target.value.trim().length === 0) {
-			return;
-		};
+	checkInputs() {
 		const messageElement = document.querySelector('#message');
+		const userElement = document.querySelector('#username');
+		if(userElement.value.trim().length === 0) {
+			userElement.focus();
+			return;
+		}
 		if(messageElement.value.trim().length === 0) {
 			messageElement.focus();
-		} else {
+			return;
+		}
+		if(userElement.value.trim().length > 0 && messageElement.value.trim().length > 0) {
 			this.fetchData();
 		}
 	},
@@ -106,17 +111,14 @@ const app = {
 		document.querySelector('#username').addEventListener('keypress', event => {
 			if(event.key === "Enter") {
 				event.preventDefault();
-				this.checkInput(event);
+				this.checkInputs();
 			}
 		});
 
 		document.querySelector('#message').addEventListener('keypress', event => {
 			if(event.key === "Enter") {
 				event.preventDefault();
-				if(event.target.value.trim().length === 0) {
-					return;
-				}
-				this.fetchData();
+				this.checkInputs();
 			}
 		});
 
@@ -129,7 +131,7 @@ const app = {
 		});
 
 		document.querySelector('#button').addEventListener('click', event => {
-			this.fetchData();
+			this.checkInputs();
 		});
 	}
 }
