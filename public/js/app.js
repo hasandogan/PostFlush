@@ -82,7 +82,6 @@ const app = {
 				"Access-Control-Origin": "*"
 			}
 		}).then(response => response.json()).then(data => {
-			alert(JSON.stringify(data));
 			app.posted = true;
 		});
 	},
