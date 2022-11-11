@@ -105,8 +105,8 @@ const app = {
 				"Access-Control-Origin": "*"
 			}
 		}).then(response => response.json()).then(data => {
-			app.posted = true;
 		});
+		app.posted = true;
 	},
 
 	limitFormat(event, limit) {
