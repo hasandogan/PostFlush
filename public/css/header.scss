@@ -1,7 +1,30 @@
+header {
+	height: $header-height;
+	background-color: $primary;
+	margin-bottom: $gutter;
+	padding: 0 $gutter;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 #logo {
 	width: 200px;
 	height: $header-height;
 	display: flex;
 	align-items: center;
 	font-size: 2rem;
+	color: #ffffff;
+}
+
+#question {
+	width: $header-height - $gutter;
+	height: $header-height - $gutter;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	font-size: 2.4rem;
+	color: $primary-text;
+	cursor: pointer;
 }

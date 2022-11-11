@@ -1,67 +1,84 @@
+footer {
+	background: $primary;
+	padding: 0 $gutter;
+	background-color: $primary;
+	@media (max-width: 576px) {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: ($input-height + ($gutter * 2));
+	}
+}
+
 #form {
-	height: 40px;
-	padding: 15px 0;
+	padding: $gutter 0;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	input[type="text"] {
-		height: 40px;
-		border: 1px solid $border-color;
-		font-size: 1.3rem;
-		border-radius: 0;
+		height: $input-height;
+		border: 1px solid $border;
+		font-size: 1.4rem;
+		border-radius: $radius;
 		padding: 0 1rem;
+		transition: $transition;
 		font-family: inherit;
-		&:focus {
-			border-color: $primary-color;
+		&:focus,
+		&:active {
+			border-color: $primary;
 			box-shadow: none;
 			outline: 0;
 		}
 		&#username {
 			flex: 1 0 0;
 			max-width: 100%;
-			margin-right: $gutter;
-			display: block;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
 			@media (max-width: 576px) {
 				flex: 0 0 100px;
 				max-width: 100px;
-				margin: 0;
 			}
 		}
 		&#message {
 			flex: 3 0 0;
 			max-width: 100%;
-			margin-right: $gutter;
+			margin-left: -1px;
+			border-radius: 0;
 			@media (max-width: 576px) {
-				flex: 0 0 auto;
-				margin: 0;
+				flex: 1 1 auto;
 				max-width: none;
 			}
 		}
 	}
 	button {
 		font-family: inherit;
-		height: 40px;
-		font-size: 1.3rem;
+		height: $input-height;
+		font-size: 1.4rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: $primary-color;
-		color: $primary-text-color;
-		border: none;
-		transition: $transition-base;
+		background-color: $button;
+		color: $primary-text;
+		border: 1px solid $border;
+		border-radius: $radius;
+		transition: $transition;
 		cursor: pointer;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		margin-left: -1px;
 		&:after {
 			content: ' post';
 			margin-left: 5px;
 		}
 		&:hover {
-			background-color: $primary-color;
+			background-color: $button-hover;
 		}
 		&:disabled {
 			opacity: 0.5;
 		}
 		@media (max-width: 576px) {
-			width: 40px;
+			width: $input-height;
 			&:after {
 				display: none;
 			}

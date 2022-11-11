@@ -11,25 +11,24 @@
 	margin: 0 auto;
 	padding: 0 $gutter;
 	height: 100%;
+	.container-inside {
+		border-left: 1px solid $border;
+		border-right: 1px solid $border;
+		height: 100%;
+	}
+	@media (max-width: 576px) {
+		border: none;
+		padding: 0;
+	}
 }
-
-header {
-	height: $header-height;
-}
-
-@import "header";
 
 main {
-	height: calc(100% - $header-height);
+	height: calc(100% - ($header-height + $input-height) - ($gutter * 3));
 	position: relative;
+	padding-bottom: $gutter;
 }
 
 #result {
 	overflow: auto;
-	border: 1px solid $border-color;
-	padding: 15px;
-	height: calc(100% - 70px);
+	height: 100%;
 }
-
-@import "messages";
-@import "form";

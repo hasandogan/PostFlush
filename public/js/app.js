@@ -59,10 +59,8 @@ const app = {
 		}
 		document.querySelector('#message').value = "";
 		document.querySelector("#button").disabled = true;
-		document.querySelector('#message').disabled = true;
 		setTimeout(_ => {
 			document.querySelector("#button").disabled = false;
-			document.querySelector('#message').disabled = false;
 			document.querySelector('#message').focus();
 			app.posted = false;
 		}, 3000);
@@ -70,7 +68,6 @@ const app = {
 
 	checkLimit() {
 		const bubbleElement = document.querySelectorAll('.message-bubble');
-		console.log(bubbleElement.length);
 		if(bubbleElement.length === 100) {
 			bubbleElement[0].remove();
 		}
@@ -93,19 +90,44 @@ const app = {
 		event.target.value = event.target.value.substr(0, limit);
 	},
 
+	checkInput(event) {
+		if(event.target.value.trim().length === 0) {
+			return;
+		};
+		const messageElement = document.querySelector('#message');
+		if(messageElement.value.trim().length === 0) {
+			messageElement.focus();
+		} else {
+			this.fetchData();
+		}
+	},
+
 	eventListener() {
+		document.querySelector('#username').addEventListener('keypress', event => {
+			if(event.key === "Enter") {
+				event.preventDefault();
+				this.checkInput(event);
+			}
+		});
+
 		document.querySelector('#message').addEventListener('keypress', event => {
 			if(event.key === "Enter") {
 				event.preventDefault();
-				app.fetchData();
+				if(event.target.value.trim().length === 0) {
+					return;
+				}
+				this.fetchData();
 			}
 		});
+
 		document.querySelector('#message').addEventListener('input', event => {
 			this.limitFormat(event, 80);
 		});
+
 		document.querySelector('#username').addEventListener('input', event => {
 			this.limitFormat(event, 20);
 		});
+
 		document.querySelector('#button').addEventListener('click', event => {
 			this.fetchData();
 		});

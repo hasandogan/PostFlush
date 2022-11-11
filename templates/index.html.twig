@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div id="wrapper" class="dd">
+<div id="wrapper">
 	<div class="container">
-		{% include 'snippets/header.twig' %}
-		<main>
-			<div id="result">
-				<div id="messages"></div>
-			</div>
-			<div id="form">
-				<input type="text" id="username" placeholder="who">
-				<input type="text" id="message" placeholder="what">
-				<button type="submit" id="button">🚽</button>
-			</div>
-		</main>
+		<div class="container-inside">
+			{% include 'snippets/header.twig' %}
+			<main>
+				<div id="result">
+					<div>
+						<div id="messages"></div>
+					</div>
+				</div>
+			</main>
+			{% include 'snippets/footer.twig' %}
+		</div>
 	</div>
 </div>
 {% endblock %}
