@@ -125,7 +125,7 @@ const app = {
 			return;
 		}		
 		if(userElement.value.trim().length > 0 && messageElement.value.trim().length > 0) {
-			if(app.posted === false) {
+			if(app.posted === true) {
 				return;
 			}
 			this.fetchData();
