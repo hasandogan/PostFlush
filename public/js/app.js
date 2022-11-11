@@ -1,5 +1,7 @@
 const app = {
 
+	posted: false,
+
 	init() {
 		this.listen();
 		this.getLastMessage()
@@ -18,7 +20,7 @@ const app = {
 		
 		es.onmessage = message => {
 			const data = JSON.parse(message.data);
-			this.createBubble(data);
+			this.createBubble(app.posted, data);
 		}
 	},
 
@@ -32,7 +34,7 @@ const app = {
 		}).then((response) => response.json())
   		.then((data) => {
 			data.forEach(lastMessage => {
-				let data = {message: lastMessage.message, username: lastMessage.username}
+				const data = {message: lastMessage.message, username: lastMessage.username};
 				this.createMessageHtml(data);
 			});
 		});
@@ -45,16 +47,16 @@ const app = {
 			<div class="user">${data.username}</div>
 			<div class="message">${data.message}</div>
 		`;
-		const audio = new Audio("mp3/message.mp3");
-		audio.play();
 		this.checkLimit();
 		document.querySelector('#messages').appendChild(messageContainer);
 		document.querySelector('#result').scrollTo(0, 10000000);
 	},
 
-	createBubble(data) {
+	createBubble(posted = false, data) {
 		this.createMessageHtml(data);
-
+		if(posted === false) {
+			return;
+		}
 		document.querySelector('#message').value = "";
 		document.querySelector("#button").disabled = true;
 		document.querySelector('#message').disabled = true;
@@ -62,11 +64,13 @@ const app = {
 			document.querySelector("#button").disabled = false;
 			document.querySelector('#message').disabled = false;
 			document.querySelector('#message').focus();
-
-		}, 3000);},
+			app.posted = false;
+		}, 3000);
+	},
 
 	checkLimit() {
 		const bubbleElement = document.querySelectorAll('.message-bubble');
+		console.log(bubbleElement.length);
 		if(bubbleElement.length === 100) {
 			bubbleElement[0].remove();
 		}
@@ -82,6 +86,7 @@ const app = {
 				"Access-Control-Origin": "*"
 			}
 		});
+		app.posted = true;
 	},
 
 	limitFormat(event, limit) {
@@ -104,6 +109,5 @@ const app = {
 		document.querySelector('#button').addEventListener('click', event => {
 			this.fetchData();
 		});
-
 	}
 }

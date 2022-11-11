@@ -8,9 +8,7 @@
 /var/cache
 /vendor/
 /node_modules/
-/assets/
 /.env
 ###< symfony/framework-bundle ###
 
 /.idea
-/node_modules

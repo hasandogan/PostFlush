@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	font-size: 12px;
+	font-size: 14px;
 	overflow: hidden;
 }
 
@@ -17,9 +17,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: darken($primary-color, 15%);
+	background: $primary-color;
 	border-radius: 5px;
-	&:hover {
-		background: darken($primary-color, 25%);
-	}
 }
