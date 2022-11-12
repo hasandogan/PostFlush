@@ -39,4 +39,19 @@ class MessageController extends AbstractController
     public function getMessage(ManagerRegistry $doctrine){
         return new JsonResponse(array_reverse($doctrine->getManager()->getRepository(Message::class)->findLast100Message()), 200, ["Content-Type" => "application/json"]);
     }
+
+    /**
+     * @param HubInterface $hub
+     * @param Request $request
+     */
+    #[Route('/jwt', name: 'jwt')]
+    public function generateJwt(HubInterface $hub, Request $request)
+    {
+        $tag = array_keys($request->request->all());
+        if ($tag[0] == '/'){
+            $tag[0] = 'live_message';
+        }
+        return new JsonResponse($hub->getProvider()->getJwt($tag[0]), 200, ["Content-Type" => "application/json"]);
+
+    }
 }

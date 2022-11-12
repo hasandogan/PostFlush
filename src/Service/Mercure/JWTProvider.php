@@ -27,8 +27,10 @@ final class JWTProvider implements TokenProviderInterface
         $this->containerBag = $containerBag;
     }
 
-    public function getJwt(): string
+    public function getJwt($tag = null): string
     {
+        // todo gelen tage'göre jwt ye bakılacak şimdilik null setledim ve default live_message burda ki
+        // todo const kaldırılıp doğrudan gelen tage göre alınması gerekiyor
         $mercureJwtSecret = $this->containerBag->get('mercure_secret_key');
         $configuration = Configuration::forSymmetricSigner(
             new Sha256(),
