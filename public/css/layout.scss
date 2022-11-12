@@ -9,27 +9,26 @@
 .container {
 	max-width: 1280px;
 	margin: 0 auto;
-	padding: 0 $gutter;
+	padding: 0 var(--gutter);
 	height: 100%;
+	.container-inside {
+		border-left: 1px solid var(--border);
+		border-right: 1px solid var(--border);
+		height: 100%;
+	}
+	@media (max-width: 576px) {
+		border: none;
+		padding: 0;
+	}
 }
-
-header {
-	height: $header-height;
-}
-
-@import "header";
 
 main {
-	height: calc(100% - $header-height);
+	height: calc(100% - (var(--header-height) + var(--input-height)) - (var(--gutter) + var(--gutter) + var(--gutter)));
 	position: relative;
+	padding-bottom: var(--gutter);
 }
 
 #result {
 	overflow: auto;
-	border: 1px solid $border-color;
-	padding: 15px;
-	height: calc(100% - 70px);
+	height: 100%;
 }
-
-@import "messages";
-@import "form";

@@ -3,29 +3,29 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	min-height: 100%;
 	.message-bubble {
-		padding: $gutter $gutter*3;
-		border-radius: $radius-base;
-		background-color: $primary-color;
-		color: $primary-text-color;
-		font-size: 1.4rem;
+		padding: var(--gutter) calc(var(--gutter) + var(--gutter) + var(--gutter));
+		border-radius: var(--radius);
+		background-color: var(--primary);
+		color: var(--primary-text);
 		position: relative;
-		margin-bottom: $gutter;
+		margin: 0 var(--gutter) var(--gutter);
 		&:last-child {
 			margin-bottom: 0;
 		}
 		.user {
 			font-size: 1.3rem;
 			font-weight: 700;
-			transform: translateX(-15px);
+			transform: translateX((-15px));
 			&:after {
 				content: ' -'
 			}
 		}
 		.message {
 			font-style: italic;
+			word-break: break-word;
 			&:after {                                                       
 				content: close-quote;
 				vertical-align: bottom;

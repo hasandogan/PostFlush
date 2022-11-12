@@ -1,9 +1,34 @@
 const app = {
 
+	posted: false,
+
 	init() {
 		this.listen();
+		this.checkTheme();
 		this.getLastMessage()
 		this.eventListener();
+	},
+
+	checkTheme() {
+		if(window.localStorage.theme === "dark") {
+			this.toggleTheme('dark');
+		} else {
+			this.toggleTheme('light');
+		}
+	},
+
+	toggleTheme(attr) {
+		if(attr === 'dark') {
+			window.localStorage.setItem('theme', 'dark');
+			document.querySelector('html').classList.add('dark');
+			document.querySelector('.toggle-theme').setAttribute('rel', 'light');
+			document.querySelector('.toggle-theme').innerHTML = '&#9788';
+		} else {
+			window.localStorage.removeItem('theme');
+			document.querySelector('html').classList.remove('dark');
+			document.querySelector('.toggle-theme').setAttribute('rel', 'dark');
+			document.querySelector('.toggle-theme').innerHTML = '&#9789';
+		}
 	},
 
 	listen() {
@@ -18,7 +43,7 @@ const app = {
 		
 		es.onmessage = message => {
 			const data = JSON.parse(message.data);
-			this.createBubble(data);
+			this.createBubble(app.posted, data);
 		}
 	},
 
@@ -29,10 +54,9 @@ const app = {
 				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
 				"Access-Control-Origin": "*"
 			}
-		}).then((response) => response.json())
-  		.then((data) => {
+		}).then(response => response.json()).then(data => {
 			data.forEach(lastMessage => {
-				let data = {message: lastMessage.message, username: lastMessage.username}
+				const data = {message: lastMessage.message, username: lastMessage.username};
 				this.createMessageHtml(data);
 			});
 		});
@@ -45,25 +69,24 @@ const app = {
 			<div class="user">${data.username}</div>
 			<div class="message">${data.message}</div>
 		`;
-		const audio = new Audio("mp3/message.mp3");
-		audio.play();
 		this.checkLimit();
 		document.querySelector('#messages').appendChild(messageContainer);
 		document.querySelector('#result').scrollTo(0, 10000000);
 	},
 
-	createBubble(data) {
+	createBubble(posted, data) {
 		this.createMessageHtml(data);
-
+		if(posted === false) {
+			return;
+		}
 		document.querySelector('#message').value = "";
 		document.querySelector("#button").disabled = true;
-		document.querySelector('#message').disabled = true;
 		setTimeout(_ => {
 			document.querySelector("#button").disabled = false;
-			document.querySelector('#message').disabled = false;
 			document.querySelector('#message').focus();
-
-		}, 3000);},
+			app.posted = false;
+		}, 3000);
+	},
 
 	checkLimit() {
 		const bubbleElement = document.querySelectorAll('.message-bubble');
@@ -81,29 +104,63 @@ const app = {
 				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
 				"Access-Control-Origin": "*"
 			}
+		}).then(response => response.json()).then(data => {
 		});
+		app.posted = true;
 	},
 
 	limitFormat(event, limit) {
 		event.target.value = event.target.value.substr(0, limit);
 	},
 
+	checkInputs() {
+		const messageElement = document.querySelector('#message');
+		const userElement = document.querySelector('#username');
+		if(userElement.value.trim().length === 0) {
+			userElement.focus();
+			return;
+		}
+		if(messageElement.value.trim().length === 0) {
+			messageElement.focus();
+			return;
+		}		
+		if(userElement.value.trim().length > 0 && messageElement.value.trim().length > 0) {
+			if(app.posted === true) {
+				return;
+			}
+			this.fetchData();
+		}
+	},
+
 	eventListener() {
+		document.querySelector('#username').addEventListener('keypress', event => {
+			if(event.key === "Enter") {
+				event.preventDefault();
+				this.checkInputs();
+			}
+		});
+
 		document.querySelector('#message').addEventListener('keypress', event => {
 			if(event.key === "Enter") {
 				event.preventDefault();
-				app.fetchData();
+				this.checkInputs();
 			}
 		});
+
 		document.querySelector('#message').addEventListener('input', event => {
 			this.limitFormat(event, 80);
 		});
+
 		document.querySelector('#username').addEventListener('input', event => {
 			this.limitFormat(event, 20);
 		});
+
 		document.querySelector('#button').addEventListener('click', event => {
-			this.fetchData();
+			this.checkInputs();
 		});
 
+		document.querySelector('.toggle-theme').addEventListener('click', event => {
+			this.toggleTheme(event.target.getAttribute('rel'));
+		});
 	}
 }

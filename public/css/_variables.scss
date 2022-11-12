@@ -1,8 +1,33 @@
-$body-bg: #ffffff;
-$primary-color: #babadd;
-$primary-text-color: #000000;
-$gutter: 1.5rem;
-$header-height: 6rem;
-$border-color: #999999;
-$radius-base: 10px;
-$transition-base: .4s;
+:root {
+	--white: #ffffff;
+	--black: #000000;
+	--body-bg: #ffffff;
+	--text: #000000;
+	--primary: #484870;
+	--button: #67679e;
+	--primary-text: #ffffff;
+	--button-text: #ffffff;
+	--button-hover: #343451;
+	--input-bg: #ffffff;
+	--gutter: 1rem;
+	--border: #202032;
+	--radius: .4rem;
+	--transition: .4s;
+	--header-height: 6rem;
+	--input-height: 5rem;
+	--input-text: #000000;
+	--input-placeholder: #999999;
+}
+
+:root.dark {
+	--body-bg: #000000;
+	--text: #ffffff;
+	--primary: #484870;
+	--button: #67679e;
+	--primary-text: #ffffff;
+	--button-text: #ffffff;
+	--button-hover: #343451;
+	--border: #202032;
+	--input-bg: #d3d3e3;
+	--input-placeholder: #666666;
+}

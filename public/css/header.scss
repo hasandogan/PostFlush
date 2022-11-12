@@ -1,7 +1,38 @@
+header {
+	height: var(--header-height);
+	background-color: var(--primary);
+	margin-bottom: var(--gutter);
+	padding: 0 var(--gutter);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 #logo {
 	width: 200px;
-	height: $header-height;
+	height: var(--header-height);
 	display: flex;
 	align-items: center;
 	font-size: 2rem;
+	color: #ffffff;
+}
+
+.toggle-theme {
+	width: calc(var(--header-height) - var(--gutter));
+	height: calc(var(--header-height) - var(--gutter));
+	line-height: 1;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	color: var(--button-text);
+	font-size: 2rem;
+	cursor: pointer;
+	border: 1px solid var(--border);
+	background-color: var(--button);
+	border-radius: var(--radius);
+	transition: var(--transition);
+	&:hover {
+		background-color: var(--button-hover);
+	}
 }
