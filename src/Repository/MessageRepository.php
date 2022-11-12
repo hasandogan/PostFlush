@@ -42,10 +42,10 @@ class MessageRepository extends ServiceEntityRepository
     /**
      * @return Message[] Returns an array of Message objects
      */
-    public function findByExampleField()
+    public function findLast100Message()
     {
         return $this->createQueryBuilder('m')
-            ->select(array('m.id','m.message','m.username'))
+            ->select(array('m.id','m.message','m.username','m.createdAt'))
             ->orderBy('m.id', 'DESC')
             ->setMaxResults(98)
             ->getQuery()

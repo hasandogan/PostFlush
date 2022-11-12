@@ -37,6 +37,6 @@ class MessageController extends AbstractController
      */
     #[Route('/lastMessage', name: 'lastMessage', methods: ['POST'])]
     public function getMessage(ManagerRegistry $doctrine){
-        return new JsonResponse(array_reverse($doctrine->getManager()->getRepository(Message::class)->findByExampleField()), 200, ["Content-Type" => "application/json"]);
+        return new JsonResponse(array_reverse($doctrine->getManager()->getRepository(Message::class)->findLast100Message()), 200, ["Content-Type" => "application/json"]);
     }
 }
