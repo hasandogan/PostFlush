@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use DateInterval;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -42,7 +44,7 @@ class MessageRepository extends ServiceEntityRepository
     /**
      * @return Message[] Returns an array of Message objects
      */
-    public function findLast100Message()
+    public function findLast100Message(): array
     {
         return $this->createQueryBuilder('m')
             ->select(array('m.id','m.message','m.username','m.createdAt'))
@@ -51,6 +53,24 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult()
         ;
+    }
+
+    /**
+     * @param string
+     * @throws NonUniqueResultException
+     */
+    public function getLastMessageFromIp()
+    {
+        $dateTime = new \DateTimeImmutable("now");
+        $dateTime = $dateTime->modify("-3 seconds");
+        return $this->createQueryBuilder('m')
+            ->select(["m"])
+            ->where("m.ip = :ip")
+            ->andWhere("m.createdAt > :createAt")
+            ->setParameter("ip",$_SERVER['REMOTE_ADDR'])
+            ->setParameter("createAt",$dateTime)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    public function findOneBySomeField($value): ?Message

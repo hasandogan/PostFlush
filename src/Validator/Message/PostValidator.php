@@ -2,6 +2,7 @@
 
 namespace App\Validator\Message;
 
+use App\Constraint\MessageExists;
 use App\Validator\BaseValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,7 +22,8 @@ class PostValidator extends BaseValidator
                 new Assert\Length([
                     'max' => '80',
                     'maxMessage' => 'Mesaj uzunluğu 80 karakterden fazla olamaz'
-                ])
+                ]),
+                new MessageExists(['message' => 'Yeni mesaj atmak için 3 sn beklemelisiniz.']),
             ],
             'username' => [
                 new Assert\NotBlank([
