@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Message;
+use App\Entity\Tag;
 use App\Repository\MessageRepository;
 use App\Service\Mercure\MercureService;
 use Exception;

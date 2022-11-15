@@ -13,8 +13,10 @@ RUN apt-get install git -y
 RUN apt-get install curl -y
 RUN apt-get install nano -y
 RUN apt-get install openssl -y
+RUN apt-get install python3 -y
 RUN apt-get install mysql-client mysql-server -y
 RUN service mysql start
+RUN apt-get install supervisor -y
 RUN apt-get update
 
 RUN apt-get update && apt-get install -y \
@@ -41,6 +43,9 @@ ADD default.conf /etc/nginx/sites-available/default.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 RUN sed -i "s/user  nginx;/user  www-data;/g" /etc/nginx/nginx.conf
 # Expose ports.
+
+ADD supervisor.conf /etc/supervisor/conf.d/messenger-worker.conf
+
 
 EXPOSE 80
 #EXPOSE 443

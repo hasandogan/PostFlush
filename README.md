@@ -9,6 +9,7 @@
 # postconsole = docker içerisine girer
 # composer install (ilk kurulum için)
 # php bin/console doctrine:schema:create
+# service supervisor start
 # exit 
 
 
