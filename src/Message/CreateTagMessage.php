@@ -11,6 +11,7 @@ class CreateTagMessage
         $this->content = $content;
     }
 
+
     /**
      * @return array
      */

@@ -4,11 +4,16 @@ namespace App\Service;
 
 use App\Entity\Message;
 use App\Entity\Tag;
+use App\Message\CreateTagMessage;
 use App\Repository\MessageRepository;
+use App\Repository\TagRepository;
+use App\Repository\TagToMessageRepository;
 use App\Service\Mercure\MercureService;
+use ContainerFb7Iox3\getTagRepositoryService;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -27,9 +32,20 @@ class MessageService
     protected SerializerInterface $serializer;
 
     /**
+     * @var TagToMessageRepository $tagToMessageRepository
+     */
+    protected TagToMessageRepository $tagToMessageRepository;
+
+    protected TagRepository $tagRepositoryService;
+
+    /**
      * @var HubInterface $hub
      */
     protected HubInterface $hub;
+    /**
+     * @var MessageBusInterface
+     */
+    protected MessageBusInterface $bus;
 
     /**
      * @return HubInterface
@@ -47,9 +63,14 @@ class MessageService
         $this->hub = $hub;
     }
 
-    public function __construct(MessageRepository $messageRepository, SerializerInterface $serializer) {
+
+    public function __construct(MessageRepository $messageRepository, SerializerInterface $serializer, MessageBusInterface $bus, TagToMessageRepository $tagToMessageRepository, TagRepository $tagRepositoryService)
+    {
         $this->messageRepository = $messageRepository;
         $this->serializer = $serializer;
+        $this->bus = $bus;
+        $this->tagToMessageRepository = $tagToMessageRepository;
+        $this->tagRepositoryService = $tagRepositoryService;
     }
 
     /**
@@ -59,24 +80,48 @@ class MessageService
      * @throws Exception
      */
     #[ArrayShape(['message' => "string", 'data' => "mixed"])]
-    public function storeMessage(array $data) : array {
+    public function storeMessage(array $data): array
+    {
         $mercureService = new MercureService();
         $mercureService->publish($this->getHub(), $data);
+
         // TODO : Exception class oluşturulacak. exception yötimleri buradan yapılacak.
         try {
             $message = new Message();
             $message->setMessage($data['message']);
             $message->setUsername($data['username']);
             $message->setIp($_SERVER['REMOTE_ADDR']);
-            $this->messageRepository->add($message,true);
+            $this->messageRepository->add($message, true);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+        $consumerMessage = [
+            'message' => $data['message'],
+            'messageId' => $message->getId()
+        ];
+        $this->bus->dispatch(new CreateTagMessage($consumerMessage));
 
         return [
             'message' => 'Message created',
             'data' => $this->serializer->normalize($message, null)
         ];
+    }
+
+    public function getTagList()
+    {
+      $tagToMessageRepository = $this->tagToMessageRepository->findLast24HoursTags(new \DateTime());
+      $tagInfo = [];
+        foreach ($tagToMessageRepository as $tagData) {
+            $tag = $this->tagRepositoryService->findOneBy(['id' =>  $tagData['tagId']]);
+            $tagInfo[] = [
+                'tagId' => $tag->getId(),
+                'tagName' => $tag->getName(),
+                'slug' => $tag->getSlug(),
+                'tagUsageCount' => $tagData['count'],
+            ];
+        }
+
+        return $tagInfo;
     }
 
 }

@@ -2,23 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\TagRepository;
+use App\Repository\TagToMessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ORM\Entity(repositoryClass: TagToMessageRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Tag
+class TagToMessage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column]
+    private ?int $tagId = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $slug = null;
+    #[ORM\Column]
+    private ?int $messageId = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -26,33 +26,42 @@ class Tag
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return int|null
+     */
+    public function getTagId(): ?int
     {
-        return $this->name;
+        return $this->tagId;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param int|null $tagId
+     */
+    public function setTagId(?int $tagId): void
     {
-        $this->name = $name;
-
-        return $this;
+        $this->tagId = $tagId;
     }
 
-    public function getSlug(): ?string
+    /**
+     * @return int|null
+     */
+    public function getMessageId(): ?int
     {
-        return $this->slug;
+        return $this->messageId;
     }
 
-    public function setSlug(string $slug): self
+    /**
+     * @param int|null $messageId
+     */
+    public function setMessageId(?int $messageId): void
     {
-        $this->slug = $slug;
-
-        return $this;
+        $this->messageId = $messageId;
     }
 
 

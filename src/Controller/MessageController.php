@@ -29,7 +29,6 @@ class MessageController extends AbstractController
             return $this->json(['success' => false, 'message' => $validatorResult[0]->getMessage()]);
         }
         $messageService->setHub($hub);
-        $bus->dispatch(new CreateTagMessage($request->request->all()));
         // TODO : Response Class yazılacak. standzation için
         return new JsonResponse($messageService->storeMessage($request->request->all()), 200, ["Content-Type" => "application/json"]);
     }
@@ -38,7 +37,8 @@ class MessageController extends AbstractController
      * @throws ExceptionInterface
      */
     #[Route('/lastMessage', name: 'lastMessage', methods: ['POST'])]
-    public function getMessage(ManagerRegistry $doctrine){
+    public function getMessage(ManagerRegistry $doctrine)
+    {
         return new JsonResponse(array_reverse($doctrine->getManager()->getRepository(Message::class)->findLast100Message()), 200, ["Content-Type" => "application/json"]);
     }
 
@@ -50,10 +50,19 @@ class MessageController extends AbstractController
     public function generateJwt(HubInterface $hub, Request $request)
     {
         $tag = array_keys($request->request->all());
-        if ($tag[0] == '/'){
+        if ($tag[0] == '/') {
             $tag[0] = 'live_message';
         }
         return new JsonResponse($hub->getProvider()->getJwt($tag[0]), 200, ["Content-Type" => "application/json"]);
 
+    }
+
+    #[Route('/getTagList', name: 'TagList', methods: ['POST'])]
+    public function getTag(HubInterface $hub,MessageService $messageService)
+    {
+
+        $messageService->setHub($hub);
+
+        return new JsonResponse($messageService->getTagList(), 200, ["Content-Type" => "application/json"]);
     }
 }
